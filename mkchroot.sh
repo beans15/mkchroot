@@ -49,11 +49,11 @@ case "$COMMAND" in
         fi
         ;;
     "copy") # ファイルをコピーする
-        FILE="$2"
-        ROOTDIR="$3"
+        ROOTDIR="$2"
+        FILE="$3"
 
         if [[ -z "$ROOTDIR" || -z "$FILE" ]]; then
-            echo 'Usage: mkchroot.sh copy FILE ROOT' > /dev/stderr
+            echo 'Usage: mkchroot.sh copy ROOT FILE' > /dev/stderr
             echo '' > /dev/stderr
             echo 'mkchroot: No root directory or file specified' > /dev/stderr
             exit -1
