@@ -12,8 +12,16 @@ copy()
     _FILE="$1"
     ROOTDIR="$2"
 
-    if [[ ! -f "$ROOTDIR"/"${_FILE}" ]]; then
-        cp "${_FILE}" "$ROOTDIR"/"${_FILE}"
+    _TARGET_FILE="$ROOTDIR"/"${_FILE}"
+
+    if [[ ! -f "${_TARGET_FILE}" ]]; then
+        # ディレクトリがない場合は作成する
+        _PARENT_DIR=`echo ${_TARGET_FILE} | sed -e 's/^\(.*\/\).*$/\1/'`
+        if [[ ! -d "${_PARENT_DIR}" ]]; then
+            mkdir -p "${_PARENT_DIR}"
+        fi
+
+        cp "${_FILE}" "${_TARGET_FILE}"
 
         # 依存関係を調べる
         for f in `otool -L "${_FILE}" | grep -v '^.*:' | awk '{print $1}'`; do
