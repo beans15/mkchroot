@@ -64,6 +64,11 @@ case "$COMMAND" in
             exit -1
         fi
 
+        if [[ ! -f "$FILE" ]]; then
+            echo "mkchroot: $FILE: No such file" > /dev/stderr
+            exit -1
+        fi
+
         copy "$FILE" "$ROOTDIR"
         ;;
     *) # それ以外のコマンド
